@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>WSET Level 3 Sake Tasting Notes</title>
+    <template id="type-template">
+      <tr id="type">
+        <td colspan="2"><label class="form-check-label" for="type" style="font-weight: bold;">Type</label></td>
+      </tr>
+    </template>
+    <template id="cluster-template">
+      <tr>
+        <td><label class="form-check-label" for="category_default">Category</label></td>
+        <td></td>
+      </tr>
+    </template>
+    <template id="tasting-note-template">
+      <div class="btn-group" role="group">
+      <input class="btn-check" type="checkbox" name="category" id="category_default" data-default="Default" value="default" onchange="toggleCheckboxDropdown(this)"><label for="category_default" class="btn btn-outline-light">Acacia</label>
+      <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="display: none;">
+        <span class="visually-hidden">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><button class="dropdown-item" type="button" onclick="addPrefix(this)">Clear</button></li>
+      </ul>
+    </div>
+    </template>
+    <template id="tasting-note-dropdown-item-template">
+      <li><button class="dropdown-item" type="button" onclick="addPrefix(this)">Default</button></li>
+    </template>
+    <template id="property-range-template">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="category_property_default" name="category_property" value="default">
+        <label class="form-check-label" for="category_property_default">Default</label>
+      </div>
+    </template>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <div class="container">
+      <h1>WSET Level 3 Sake Tasting Notes</h1>
+      <form id="notes">
+        <div class="accordion" id="accordionNotes">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingAppearance">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAppearance" aria-expanded="false" aria-controls="collapseAppearance">
+                Appearance
+              </button>
+            </h2>
+            <div id="collapseAppearance" class="accordion-collapse collapse" aria-labelledby="headingAppearance" data-bs-parent="#accordionNotes">
+              <div class="accordion-body">
+                <table class="table">
+                  <tr id="appearance_clarity">
+                    <td><label class="form-check-label" for="appearance_clarity">Colour</label></td>
+                    <td>
+                      <select class="form-select" id="appearance_clarity_select" onchange="changeColour(this.value)">
+                        <option value="clear">Clear</option>
+                        <option value="cloudy">Cloudy</option>
+                      </select>
+                    </td>
+                    <td>
+                      <div id="appearance_clarity_clear">
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_clarity_clear_clear" name="appearance_clarity" value="clear"><label class="form-check-label" for="appearance_clarity_clear_clear">Clear</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_clarity_clear_slightly_hazy" name="appearance_clarity" value="slightly hazy"><label class="form-check-label" for="appearance_clarity_clear_slightly_hazy">Slightly Hazy</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_clarity_clear_hazy" name="appearance_clarity" value="hazy"><label class="form-check-label" for="appearance_clarity_clear_hazy">Hazy</label></div>
+                      </div>
+                      <div id="appearance_clarity_cloudy" style="display:none;">
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_clarity_cloudy_light_lees" name="appearance_clarity" value="light lees"><label class="form-check-label" for="appearance_clarity_cloudy_light_lees">Light Lees</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_clarity_cloudy_medium_lees" name="appearance_clarity" value="medium lees"><label class="form-check-label" for="appearance_clarity_cloudy_medium_lees">Medium Lees</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_clarity_cloudy_thick_lees" name="appearance_clarity" value="thick lees"><label class="form-check-label" for="appearance_clarity_cloudy_thick_lees">Thick Lees</label></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="appearance_intensity">
+                    <td colspan="2"><label class="form-check-label" for="appearance_intensity">Intensity</label></td>
+                    <td>
+                        <div id="appearance_intensity_clear">
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_intensity_clear_water_white" name="appearance_intensity" value="clear"><label class="form-check-label" for="appearance_intensity_clear_water_white">Water-White</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_intensity_clear_pale" name="appearance_intensity" value="slightly hazy"><label class="form-check-label" for="appearance_intensity_clear_pale">Pale</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_intensity_clear_medium" name="appearance_intensity" value="hazy"><label class="form-check-label" for="appearance_intensity_clear_medium">Medium</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_intensity_clear_deep" name="appearance_intensity" value="hazy"><label class="form-check-label" for="appearance_intensity_clear_deep">Deep</label></div>
+                        </div>
+                        <div id="appearance_intensity_cloudy" style="display:none;">
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_intensity_cloudy_colourless" name="appearance_intensity" value="colourless"><label class="form-check-label" for="appearance_intensity_cloudy_colourless">Colourless</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_intensity_cloudy_slightly_coloured" name="appearance_intensity" value="slightly coloured"><label class="form-check-label" for="appearance_intensity_cloudy_slightly_coloured">Slightly Coloured</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_intensity_cloudy_coloured" name="appearance_intensity" value="coloured"><label class="form-check-label" for="appearance_intensity_cloudy_coloured">Coloured</label></div>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr id="appearance_colour">
+                    <td colspan="2"><label class="form-check-label" for="appearance_colour">Colour</label></td>
+                    <td>
+                        <div id="appearance_colour_clear">
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_clear_colourless" name="appearance_colour" value="colourless"><label class="form-check-label" for="appearance_colour_clear_colourless">Colourless</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_clear_lemon_green" name="appearance_colour" value="lemon-green"><label class="form-check-label" for="appearance_colour_clear_lemon_green">Lemon-Green</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_clear_lemon" name="appearance_colour" value="lemon"><label class="form-check-label" for="appearance_colour_clear_lemon">Lemon</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_clear_gold" name="appearance_colour" value="gold"><label class="form-check-label" for="appearance_colour_clear_gold">Gold</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_clear_amber" name="appearance_colour" value="amber"><label class="form-check-label" for="appearance_colour_clear_amber">Amber</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_clear_brown" name="appearance_colour" value="brown"><label class="form-check-label" for="appearance_colour_clear_brown">Brown</label></div>
+                        </div>
+                        <div id="appearance_colour_cloudy" style="display:none;">
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_cloudy_pure_white" name="appearance_colour" value="pure white"><label class="form-check-label" for="appearance_colour_cloudy_pure_white">Pure White</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_cloudy_off_white" name="appearance_colour" value="off-white"><label class="form-check-label" for="appearance_colour_cloudy_off_white">Off-White</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_cloudy_yellow" name="appearance_colour" value="yellow"><label class="form-check-label" for="appearance_colour_cloudy_yellow">Yellow</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_cloudy_brown" name="appearance_colour" value="brown"><label class="form-check-label" for="appearance_colour_cloudy_brown">Brown</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="appearance_colour_cloudy_grey" name="appearance_colour" value="grey"><label class="form-check-label" for="appearance_colour_cloudy_grey">Grey (Faulty)</label></div>
+                        </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><label class="form-check-label" for="appearance_other_observations">Other Observations</label></td>
+                    <td>
+                      <textarea class="form-control" id="appearance_other_observations" name="appearance_other_observations" placeholder="e.g. legs/tears, tiny bubbles, bubbles, red/pink tints" rows="1"></textarea> 
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingNose">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNose" aria-expanded="false" aria-controls="collapseNose">
+                Nose
+              </button>
+            </h2>
+            <div id="collapseNose" class="accordion-collapse collapse" aria-labelledby="headingNose" data-bs-parent="#accordionNotes">
+              <div class="accordion-body">
+                <table class="table" id="table_aroma">
+                  <tr id="nose_condition">
+                    <td><label class="form-check-label" for="nose_condition">Condition</label></td>
+                    <td colspan="3">
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="clean" name="nose_condition" value="clean"><label class="form-check-label" for="clean">Clean</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="unclean" name="nose_condition" value="unclean"><label class="form-check-label" for="unclean">Unclean</label></div>
+                    </td>
+                  </tr>
+                  <tr id="nose_intensity">
+                    <td><label class="form-check-label" for="nose_intensity">Intensity</label></td>
+                    <td colspan="3">
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="nose_intensity_light" name="nose_intensity" value="light"><label class="form-check-label" for="nose_intensity_light">Light</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="nose_intensity_medium-" name="nose_intensity" value="medium-"><label class="form-check-label" for="nose_intensity_medium-">Medium-</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="nose_intensity_medium" name="nose_intensity" value="medium"><label class="form-check-label" for="nose_intensity_medium">Medium</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="nose_intensity_medium+" name="nose_intensity" value="medium+"><label class="form-check-label" for="nose_intensity_medium+">Medium+</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="nose_intensity_pronounced" name="nose_intensity" value="pronounced"><label class="form-check-label" for="nose_intensity_pronounced">Pronounced</label></div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingPalate">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePalate" aria-expanded="false" aria-controls="collapsePalate">
+                Palate
+              </button>
+            </h2>
+            <div id="collapsePalate" class="accordion-collapse collapse" aria-labelledby="headingPalate" data-bs-parent="#accordionNotes">
+              <div class="accordion-body">
+                <table class="table" id="table_palate">
+                  <tr id="palate_sweetness">
+                    <td><label class="form-check-label" for="palate_sweetness">Sweetness</label></td>
+                    <td colspan="3">
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="dry" name="palate_sweetness" value="dry"><label class="form-check-label" for="dry">Dry</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="off-dry" name="palate_sweetness" value="off-dry"><label class="form-check-label" for="off-dry">Off-Dry</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="medium-dry" name="palate_sweetness" value="medium-dry"><label class="form-check-label" for="medium-dry">Medium-Dry</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="medium-sweet" name="palate_sweetness" value="medium-sweet"><label class="form-check-label" for="medium-sweet">Medium-Sweet</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="sweet" name="palate_sweetness" value="sweet"><label class="form-check-label" for="sweet">Sweet</label></div>
+                        <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="luscious" name="palate_sweetness" value="luscious"><label class="form-check-label" for="luscious">Luscious</label></div>
+                    </td>
+                  </tr>
+                  <tr id="palate_acidity">
+                    <td><label class="form-check-label" for="palate_acidity">Acidity</label></td>
+                    <td colspan="3">
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="acidity_low" name="palate_acidity" value="low"><label class="form-check-label" for="acidity_low">Low</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="acidity_medium-" name="palate_acidity" value="medium-"><label class="form-check-label" for="acidity_medium-">Medium-</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="acidity_medium" name="palate_acidity" value="medium"><label class="form-check-label" for="acidity_medium">Medium</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="acidity_medium+" name="palate_acidity" value="medium+"><label class="form-check-label" for="acidity_medium+">Medium+</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="acidity_high" name="palate_acidity" value="high"><label class="form-check-label" for="acidity_high">High</label></div>
+                    </td>
+                  </tr>
+                  <tr id="palate_tannin">
+                    <td><label class="form-check-label" for="palate_tannin">Umami</label></td>
+                    <td colspan="3">
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="tannin_low" name="palate_tannin" value="low"><label class="form-check-label" for="tannin_low">Low</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="tannin_medium-" name="palate_tannin" value="medium-"><label class="form-check-label" for="tannin_medium-">Medium-</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="tannin_medium" name="palate_tannin" value="medium"><label class="form-check-label" for="tannin_medium">Medium</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="tannin_medium+" name="palate_tannin" value="medium+"><label class="form-check-label" for="tannin_medium+">Medium+</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="tannin_high" name="palate_tannin" value="high"><label class="form-check-label" for="tannin_high">High</label></div>
+                    </td>
+                  </tr>
+                  <tr id="palate_body">
+                    <td><label class="form-check-label" for="palate_body">Body</label></td>
+                    <td colspan="3">
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="body_low" name="palate_body" value="low"><label class="form-check-label" for="body_low">Low</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="body_medium-" name="palate_body" value="medium-"><label class="form-check-label" for="body_medium-">Medium-</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="body_medium" name="palate_body" value="medium"><label class="form-check-label" for="body_medium">Medium</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="body_medium+" name="palate_body" value="medium+"><label class="form-check-label" for="body_medium+">Medium+</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="body_full" name="palate_body" value="full"><label class="form-check-label" for="body_full">Full</label></div>
+                    </td>
+                  </tr>
+                  <tr id="palate_intensity">
+                    <td><label class="form-check-label" for="palate_intensity">Intensity</label></td>
+                    <td colspan="3">
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="palate_intensity_low" name="palate_intensity" value="low"><label class="form-check-label" for="palate_intensity_low">Low</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="palate_intensity_medium-" name="palate_intensity" value="medium-"><label class="form-check-label" for="palate_intensity_medium-">Medium-</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="palate_intensity_medium" name="palate_intensity" value="medium"><label class="form-check-label" for="palate_intensity_medium">Medium</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="palate_intensity_medium+" name="palate_intensity" value="medium+"><label class="form-check-label" for="palate_intensity_medium+">Medium+</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="palate_intensity_pronounced" name="palate_intensity" value="pronounced"><label class="form-check-label" for="palate_intensity_pronounced">Pronounced</label></div>
+                    </td>
+                  </tr>
+                  <tr id="palate_mousse">
+                    <td><label class="form-check-label" for="palate_mousse">Mousse</label></td>
+                    <td colspan="3">
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="mousse_none" name="palate_mousse" value="no"><label class="form-check-label" for="mousse_none">None</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="mousse_delicate" name="palate_mousse" value="delicate"><label class="form-check-label" for="mousse_delicate">Delicate</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="mousse_creamy" name="palate_mousse" value="creamy"><label class="form-check-label" for="mousse_creamy">Creamy</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="mousse_aggressive" name="palate_mousse" value="aggressive"><label class="form-check-label" for="mousse_aggressive">Aggressive</label></div>
+                    </td>
+                  </tr>
+                  <tr id="palate_alcohol">
+                    <td><label class="form-check-label" for="palate_alcohol">Alcohol</label></td>
+                    <td colspan="3">
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="alcohol_low" name="palate_alcohol" value="low"><label class="form-check-label" for="alcohol_low">Low</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="alcohol_medium" name="palate_alcohol" value="medium"><label class="form-check-label" for="alcohol_medium">Medium</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="alcohol_high" name="palate_alcohol" value="high"><label class="form-check-label" for="alcohol_high">High</label></div>
+                    </td>
+                  </tr>
+                  <tr id="palate_finish">
+                    <td><label class="form-check-label" for="palate_finish">Finish</label></td>
+                    <td colspan="3">
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="finish_short" name="palate_finish" value="short"><label class="form-check-label" for="finish_short">Short</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="finish_medium-" name="palate_finish" value="medium-"><label class="form-check-label" for="finish_medium-">Medium-</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="finish_medium" name="palate_finish" value="medium"><label class="form-check-label" for="finish_medium">Medium</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="finish_medium+" name="palate_finish" value="medium+"><label class="form-check-label" for="finish_medium+">Medium+</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="finish_long" name="palate_finish" value="long"><label class="form-check-label" for="finish_long">Long</label></div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingConclusion">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConclusion" aria-expanded="false" aria-controls="collapseConclusion">
+                Conclusion
+              </button>
+            </h2>
+            <div id="collapseConclusion" class="accordion-collapse collapse" aria-labelledby="headingConclusion" data-bs-parent="#accordionNotes">
+              <div class="accordion-body">
+                <table class="table">
+                  <tr id="conclusion_quality_level">
+                    <td><label class="form-check-label" for="conclusion_quality_level">Quality Level</label></td>
+                    <td>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="faulty" name="conclusion_quality_level" value="faulty"><label class="form-check-label" for="faulty">Faulty</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="poor" name="conclusion_quality_level" value="poor"><label class="form-check-label" for="poor">Poor</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="acceptable" name="conclusion_quality_level" value="acceptable"><label class="form-check-label" for="acceptable">Acceptable</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="good" name="conclusion_quality_level" value="good"><label class="form-check-label" for="good">Good</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="very-good" name="conclusion_quality_level" value="very good"><label class="form-check-label" for="very-good">Very Good</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="outstanding" name="conclusion_quality_level" value="outstanding"><label class="form-check-label" for="outstanding">Outstanding</label></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label class="form-check-label" for="conclusion_score">Score</label></td>
+                    <td>
+                      <input type="range" class="form-range" min="50" max="100" value="75" oninput="this.nextElementSibling.value = this.value">
+                      <output id="conclusion_score"></output>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div>
+            <button type="button" class="btn btn-primary" onclick="createNote()">Create note</button>
+            <button type="button" class="btn btn-primary" onclick="copyNote()">Copy note</button>
+          </div>
+          <br>
+          <div>
+            <textarea id="note" class="form-control" rows="13" readonly></textarea>
+          </div>
+        </div>
+      </form> 
+      <br>
+      <br>
+    </div>
+  </body>
+</html>
+<script>
+  var categories = ['aroma', 'palate'];
+  var lexicon = 
+  [
+    [
+      'Describing Aroma And Flavour', 
+      [
+        ['Ginjo', ['Banana', 'Apple', 'Pear', 'Melon', 'Lychee', 'Pineapple', 'Cherry', 'Strawberry', 'Aniseed', 'Bubblegum', 'Blossom', 'Lily', 'Rose'], ['Hint Of', 'Strongly']],
+        ['Fruity/Floral', ['Ripe Banana', 'Banana Bread', 'Fig', 'Grape', 'Nectarine', 'Apricot', 'Plum', 'Lemon', 'Orange', 'White Flowers'], ['Hint Of', 'Strongly']],
+        ['Cereal/Grain', ['Rice Flour', 'Bran', 'Streamed Rice', 'Porridge', 'Toasted Cereal', 'Malt'], ['Hint Of', 'Strongly']],
+        ['Lactic/Diary', ['Milk', 'Cream', 'Yoghurt', 'Butter', 'Fresh Cheese', 'Mature Cheese'], ['Hint Of', 'Strongly']],
+        ['Sweetness', ['Cotton Candy', 'Honey', 'Sugar Cane', 'Brown Sugar', 'Molasses'], ['Hint Of', 'Strongly']],
+        ['Koshu', ['Honey', 'Molasses', 'Caramel', 'Soy', 'Dried Fruits', 'Coffee', 'Chocolate', 'Meat Broth', 'Clove', 'Cinnamon', 'Fenugreek', 'Almond', 'Walnut', 'Pickled Vegetables', 'Soy Sauce', 'Bacon', 'Compost'], ['Hint Of', 'Strongly']],
+        ['Nuts/Beans', ['Coffee', 'Chocolate', 'Fresh Hazelnut', 'Fresh Almond', 'Chestnut', 'Fresh Walnut', 'Roasted Nuts', 'Caramelised Nuts'], ['Hint Of', 'Strongly']],
+        ['Herbs', ['Mint', 'Basil', 'Lemongrass', 'Grass'], ['Hint Of', 'Strongly']],
+        ['Spices', ['Clove', 'Cinnamon', 'Nutmeg', 'Pepper'], ['Hint Of', 'Strongly']],
+        ['Other', ['Earthy', 'Mushroom', 'Hay', 'Meat', 'Cedar', 'Oak'], ['Hint Of', 'Strongly']],
+      ]
+    ], 
+    [
+      'Texture, Balance And Finish',
+      [
+        ['Texture And Balance', ['Creamy', 'Silky', 'Velvety', 'Rich'], ['Hint Of', 'Strongly']],
+        ['', ['Vibrant', 'Crisp', 'Dryness'], ['Hint Of', 'Strongly']],
+        ['', ['Bitterness', 'Astringency'], ['Hint Of', 'Strongly']]
+      ]
+    ], 
+    [
+      'Faults', 
+      [
+        ['Open Too Long', ['Staleness', 'Oxidation', 'Caramel', 'Toffee'], ['Hint Of', 'Strongly']],
+        ['Nama-Hine', ['Pickled Vegetables', 'Caramel', 'Toffee', 'Rotten Vegetables'], ['Hint Of', 'Strongly']],
+        ['Nama-Hine-Ka', ['Malt', 'Bacon', 'Geranium', 'Spices'], ['Hint Of', 'Strongly']],
+        ['Light Damage', ['Burned Hair', 'Sulfurous', 'Musky'], ['Hint Of', 'Strongly']],
+        ['Microbiological spoilage', ['Egg', 'Rotting Vegetable', 'Compost', 'Onion', 'Sour Milk', 'Rancid Cheese', 'Sweat', 'Sulfurous', 'Sticking Plasters'], ['Hint Of', 'Strongly']],
+        ['Other Faults', ['Damp Cardboard', 'Tinned Sweetcorn', 'Volatile Acidity', 'Taints From Production Equipment'], ['Hint Of', 'Strongly']],
+        ['Palate Defects', ['Unpleasant Bitterness', 'Astringency', 'Coarseness/Roughness', 'Poor Balance'], ['Hint Of', 'Strongly']]
+      ]
+    ]
+  ];
+
+  var typeTemplate = document.querySelector('#type-template');
+  var clusterTemplate = document.querySelector('#cluster-template');
+  var tastingNoteTemplate = document.querySelector('#tasting-note-template');
+  var tastingNoteDropdownItemTemplate = document.querySelector('#tasting-note-dropdown-item-template');
+  for (let category of categories) {
+    var table = document.getElementById('table_' + category).tBodies[0];
+    for (let type of lexicon) {
+      var id = category + '_' + type[0].toLowerCase();
+      var newType = typeTemplate.content.cloneNode(true).querySelector('tr');
+      newType.id = id;
+
+      var label = newType.querySelector('label');
+      label.setAttribute('for', id);
+      label.innerHTML = type[0];
+
+      table.append(newType);
+      for (let cluster of type[1]) {
+        var suffix = cluster[0].replace(/ /g, '_').toLowerCase();
+        var id = category + '_' + suffix;
+        var newCluster = clusterTemplate.content.cloneNode(true).querySelector('tr');
+        newCluster.id = id;
+
+        var label = newCluster.querySelector('label');
+        label.setAttribute('for', id);
+        label.innerHTML = cluster[0];
+
+        table.append(newCluster);
+
+        var td = newCluster.cells[1];
+        for (let item of cluster[1]) {
+          var newRow = tastingNoteTemplate.content.cloneNode(true).querySelector('div');
+          var id = category + '_' + suffix + '_' + item.replace(/ /g, '_').toLowerCase();
+
+          var input = newRow.querySelector('input');
+          input.id = id;
+          input.name = category;
+          input.value = item.toLowerCase();
+          input.dataset.default = item;
+
+          var label = newRow.querySelector('label');
+          label.setAttribute('for', id);
+          label.innerHTML = item;
+
+          var ul = newRow.querySelector('ul')
+          ul.id = id + '_dropdown';
+
+          td.append(newRow);
+          for (let dropdown of cluster[2]) {
+            var li = tastingNoteTemplate.content.cloneNode(true).querySelector('li');
+
+            var button = li.querySelector('button');
+            button.innerHTML = dropdown;
+            button.value = dropdown;
+
+            ul.append(li);
+          }
+        }
+      }
+    }
+  }
+
+  function changeColour(value) {
+    // Fetch all elements
+    var appearanceClarityClearDiv = document.getElementById("appearance_clarity_clear");
+    var appearanceClarityCloudyDiv = document.getElementById("appearance_clarity_cloudy");
+
+    var appearanceIntensityClearDiv = document.getElementById("appearance_intensity_clear");
+    var appearanceIntensityCloudyDiv = document.getElementById("appearance_intensity_cloudy");
+
+    var appearanceColourClearDiv = document.getElementById("appearance_colour_clear");
+    var appearanceColourCloudyDiv = document.getElementById("appearance_colour_cloudy");
+
+    // Hide all colour divs
+    appearanceClarityClearDiv.style.display = "none";
+    appearanceClarityCloudyDiv.style.display = "none";
+    appearanceIntensityClearDiv.style.display = "none";
+    appearanceIntensityCloudyDiv.style.display = "none";
+    appearanceColourClearDiv.style.display = "none";
+    appearanceColourCloudyDiv.style.display = "none";
+
+    // Show the appropriate colour div based on the selected wine type
+    if (value === "clear") {
+        appearanceClarityClearDiv.removeAttribute('style');
+        appearanceIntensityClearDiv.removeAttribute('style');
+        appearanceColourClearDiv.removeAttribute('style');
+    } else if (value === "cloudy") {
+        appearanceClarityCloudyDiv.removeAttribute('style');
+        appearanceIntensityCloudyDiv.removeAttribute('style');
+        appearanceColourCloudyDiv.removeAttribute('style');
+    }
+  }
+
+  function copyNote() {
+    // Select the text in the textarea
+    document.getElementById('note').select();
+    
+    // Copy the selected text to the clipboard
+    document.execCommand('copy');
+  };
+
+  function getRadioButtonsValue(name) {
+    var radios = document.getElementsByName(name);
+    for (var i = 0; i < radios.length; i++) {
+      if (radios[i].checked) {
+        return radios[i].value;
+      }
+    }
+    return "";
+  }
+
+  function toggleCheckboxDropdown(checkbox) {
+    var div = checkbox.closest('div');
+    var dropbox = div.querySelector('button');
+    if (checkbox.checked) {
+      dropbox.style.display = 'block';
+    } else {
+      dropbox.style.display = 'none';
+    }
+  }
+
+  function addPrefix(choice) {
+    var input = choice.closest('div').querySelector('input');
+    var prefix = choice.value;
+    var result = prefix + ' ' + input.dataset.default;
+
+    input.labels[0].innerHTML = result; 
+    input.value = result.toLowerCase();
+  }
+
+  function createNote() {
+    // Appearance
+    var appearance_clarity = getRadioButtonsValue('appearance_clarity');
+    var appearance_intensity = getRadioButtonsValue('appearance_intensity');
+    var appearance_colour = getRadioButtonsValue('appearance_colour');
+    var appearance_other_observations = document.getElementById('appearance_other_observations').value;
+
+    // Nose
+    var nose_condition = getRadioButtonsValue('nose_condition');
+    var nose_intensity = getRadioButtonsValue('nose_intensity');
+    var nose_aroma = "";
+    for (let type of lexicon) {
+      for (let cluster of type[1]) {
+        for (let item of cluster[1]) {
+          var id = ('aroma_' + cluster[0] + '_' + item).replace(/ /g, '_').toLowerCase();
+          var checkbox = document.getElementById(id);
+          if (checkbox.checked) {
+            nose_aroma += checkbox.value + ", ";
+          }
+        }
+      }
+    }
+
+    // Palate
+    var palate_sweetness = getRadioButtonsValue('palate_sweetness');
+    var palate_acidity = getRadioButtonsValue('palate_acidity');
+    var palate_umami = getRadioButtonsValue('palate_umami');
+    var palate_alcohol = getRadioButtonsValue('palate_alcohol');
+    var palate_body = getRadioButtonsValue('palate_body');
+    var palate_mousse = getRadioButtonsValue('palate_mousse');
+    var palate_intensity = getRadioButtonsValue('palate_intensity');
+    var palate_finish = getRadioButtonsValue('palate_finish');
+    var palate_characteristics = "";
+    for (let type of lexicon) {
+      for (let cluster of type[1]) {
+        for (let item of cluster[1]) {
+          var id = ('palate_' + cluster[0] + '_' + item).replace(/ /g, '_').toLowerCase();
+          var checkbox = document.getElementById(id);
+          if (checkbox.checked) {
+            palate_characteristics += checkbox.value + ", ";
+          }
+        }
+      }
+    }
+
+    // Conclusion
+    var conclusion_quality_level = getRadioButtonsValue('conclusion_quality_level');
+    var conclusion_score = document.getElementById('conclusion_score').value;
+
+    // Appearance
+    var appearance = 
+      (appearance_clarity ? appearance_clarity + " " : "") + 
+      (appearance_intensity ? appearance_intensity + " " : "") + 
+      (appearance_colour ? appearance_colour + "," : "") + 
+      (appearance_other_observations ? "\n" + appearance_other_observations.toLowerCase() : "");
+    appearance += appearance ? "\n\n" : "";
+
+    // Nose
+    var nose = 
+      (nose_condition ? nose_condition + ", " : "") + 
+      (nose_intensity ? nose_intensity + " intensity," : "") +
+      (nose_aroma ? "\n" + nose_aroma : "");
+    nose += nose ? "\n\n" : "";
+
+    // Palate
+    var palate = 
+      (palate_sweetness ? palate_sweetness + ", " : "") + 
+      (palate_acidity ? palate_acidity + " acidity, " : "") + 
+      (palate_umami ? palate_umami + " umami, " : "") + 
+      (palate_alcohol ? palate_alcohol + " alcohol, " : "") + 
+      (palate_body ? palate_body + " body, " : "") + 
+      (palate_mousse ? palate_mousse + " mousse, " : "") + 
+      (palate_intensity ? palate_intensity + " intensity, " : "") + 
+      (palate_finish ? palate_finish + " finish," : "") +
+      (palate_characteristics ? "\n" + palate_characteristics : "");
+    palate += palate ? "\n\n" : "";
+
+    // Conclusion
+    var conclusion = 
+      (conclusion_quality_level ? conclusion_quality_level + " quality,\n" : "") + 
+      (conclusion_score ?? "");
+
+    var note = appearance + nose + palate + conclusion;
+    note = note.replace(/^\s+|\s+$/g, '');
+    document.getElementById('note').value = note;
+  }
+</script>
