@@ -107,7 +107,7 @@
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingNose">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNose" aria-expanded="false" aria-controls="collapseNose">
-                Nose
+                Geur
               </button>
             </h2>
             <div id="collapseNose" class="accordion-collapse collapse" aria-labelledby="headingNose" data-bs-parent="#accordionNotes">
@@ -135,7 +135,7 @@
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingPalate">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePalate" aria-expanded="false" aria-controls="collapsePalate">
-                Palate
+                Smaak
               </button>
             </h2>
             <div id="collapsePalate" class="accordion-collapse collapse" aria-labelledby="headingPalate" data-bs-parent="#accordionNotes">
@@ -205,7 +205,7 @@
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingConclusion">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConclusion" aria-expanded="false" aria-controls="collapseConclusion">
-                Conclusion
+                Conclusie
               </button>
             </h2>
             <div id="collapseConclusion" class="accordion-collapse collapse" aria-labelledby="headingConclusion" data-bs-parent="#accordionNotes">
@@ -461,7 +461,6 @@
 
     // Conclusion
     var conclusion_quality_level = getRadioButtonsValue('conclusion_quality_level');
-    var conclusion_score = document.getElementById('conclusion_score').value;
 
     // Appearance
     var appearance = 
@@ -491,8 +490,7 @@
 
     // Conclusion
     var conclusion = 
-      (conclusion_quality_level ? conclusion_quality_level + " kwaliteit,\n" : "") + 
-      (conclusion_score ?? "");
+      (conclusion_quality_level ? conclusion_quality_level + " kwaliteit,\n" : "");
 
     var note = appearance + nose + palate + conclusion;
     note = note.replace(/^\s+|\s+$/g, '');
