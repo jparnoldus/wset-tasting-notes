@@ -12,18 +12,18 @@
     </template>
     <template id="cluster-template">
       <tr>
-        <td><label class="form-check-label" for="category_default">Category</label></td>
+        <td><label class="form-check-label" for="category_default">Categorie</label></td>
         <td></td>
       </tr>
     </template>
     <template id="tasting-note-template">
       <div class="btn-group" role="group">
-      <input class="btn-check" type="checkbox" name="category" id="category_default" data-default="Default" value="default" onchange="toggleCheckboxDropdown(this)"><label for="category_default" class="btn">Acacia</label>
+      <input class="btn-check" type="checkbox" name="category" id="category_default" data-default="Default" value="default" onchange="toggleCheckboxDropdown(this)"><label for="category_default" class="btn">Default</label>
       <button type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="display: none;">
         <span class="visually-hidden">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
-        <li><button class="dropdown-item" type="button" onclick="addPrefix(this)">Clear</button></li>
+        <li><button class="dropdown-item" type="button" onclick="addPrefix(this)">Weghalen</button></li>
       </ul>
     </div>
     </template>
@@ -274,9 +274,9 @@
     [
       'Tertiair', 
       [
-        ['Deliberate Oxidation', ['Amandel', 'Hazelnoot', 'Walnoot', 'Chocola', 'Koffie', 'Karamel'], ['Hint van', 'Sterk']],
-        ['Bottle Age White', ['Gedroogd fruit', 'Marmelade', 'Benzine', 'Kaneel', 'Gember', 'Nootmuskaat', 'Amandel', 'Hazelnoot', 'Honing', 'Karamel'], ['Hint van', 'Sterk']],
-        ['Bottle Age Red', ['Gedroogd fruit', 'Leer', 'Aarde', 'Paddenstoel', 'Vlees', 'Tabak', 'Natte bladeren', 'Bosgrond', 'Karamel'], ['Hint van', 'Sterk']]
+        ['Oxidatie', ['Amandel', 'Hazelnoot', 'Walnoot', 'Chocola', 'Koffie', 'Karamel'], ['Hint van', 'Sterk']],
+        ['Flesrijping', ['Gedroogd fruit', 'Marmelade', 'Benzine', 'Kaneel', 'Gember', 'Nootmuskaat', 'Amandel', 'Hazelnoot', 'Honing', 'Karamel'], ['Hint van', 'Sterk']],
+        ['Flesrijping', ['Gedroogd fruit', 'Leer', 'Aarde', 'Paddenstoel', 'Vlees', 'Tabak', 'Natte bladeren', 'Bosgrond', 'Karamel'], ['Hint van', 'Sterk']]
       ]
     ]
   ];
