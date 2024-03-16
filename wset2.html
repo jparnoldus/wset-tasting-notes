@@ -624,11 +624,12 @@
     // Conclusion
     if (conclusion_faulty == "no") {
       var conclusion = 
-        (conclusion_balance ? ((conclusion_balance === "0") ? "geen" : (conclusion_balance === "5") ? "weinig" : (conclusion_balance === "10") ? "prima" : "") + " balans, " : "") +
-        (conclusion_intensity ? ((conclusion_intensity === "0") ? "geen" : (conclusion_intensity === "5") ? "weinig" : (conclusion_intensity === "10") ? "prima" : "") + " intensiteit, " : "") +
-        (conclusion_complexity ? ((conclusion_complexity === "0") ? "geen" : (conclusion_complexity === "5") ? "weinig" : (conclusion_complexity === "10") ? "prima" : "") + " complexiteit, " : "") +
-        (conclusion_length ? ((conclusion_length === "0") ? "geen" : (conclusion_length === "5") ? "weinig" : (conclusion_length === "10") ? "prima" : "") + " lengte/afdronk, " : "") +
-        (conclusion_quality_level ? "\n" + conclusion_quality_level + " kwaliteit,\n" : "");
+        ((conclusion_balance === "0") ? "geen" : (conclusion_balance === "5") ? "weinig" : "prima") + " balans, " +
+        ((conclusion_intensity === "0") ? "geen" : (conclusion_intensity === "5") ? "weinig" : "prima") + " intensiteit, " +
+        ((conclusion_complexity === "0") ? "geen" : (conclusion_complexity === "5") ? "weinig" : "prima") + " complexiteit, " +
+        ((conclusion_length === "0") ? "geen" : (conclusion_length === "5") ? "weinig" : "prima") + " lengte/afdronk, \n" +
+        conclusion_quality_level + " kwaliteit, " +
+        conclusion_score;
     } else {
       var conclusion =
         "fouten in de wijn,\n" +
