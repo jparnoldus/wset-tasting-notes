@@ -18,14 +18,14 @@
     </template>
     <template id="tasting-note-template">
       <div class="btn-group" role="group">
-      <input class="btn-check" type="checkbox" name="category" id="category_default" data-default="Default" value="default" onchange="toggleCheckboxDropdown(this)"><label for="category_default" class="btn">Default</label>
-      <button type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="display: none;">
-        <span class="visually-hidden">Toggle Dropdown</span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><button class="dropdown-item" type="button" onclick="addPrefix(this)">Weghalen</button></li>
-      </ul>
-    </div>
+        <input class="btn-check" type="checkbox" name="category" id="category_default" data-default="Default" value="default" onchange="toggleCheckboxDropdown(this)"><label for="category_default" class="btn">Default</label>
+        <button type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="display: none;">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><button class="dropdown-item" type="button" onclick="addPrefix(this)">Weghalen</button></li>
+        </ul>
+      </div>
     </template>
     <template id="tasting-note-dropdown-item-template">
       <li><button class="dropdown-item" type="button" onclick="addPrefix(this)">Default</button></li>
@@ -211,15 +211,73 @@
             <div id="collapseConclusion" class="accordion-collapse collapse" aria-labelledby="headingConclusion" data-bs-parent="#accordionNotes">
               <div class="accordion-body">
                 <table class="table">
+                  <tr id="conclusion_faulty">
+                    <td><label class="form-check-label" for="conclusion_faulty">Fout in wijn</label></td>
+                    <td>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_faulty_yes" name="conclusion_faulty" value="yes" onchange="triggerFaulty(this.value)"><label class="form-check-label" for="conclusion_faulty_yes">Ja</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_faulty_no" name="conclusion_faulty" value="no" onchange="triggerFaulty(this.value)" checked><label class="form-check-label" for="conclusion_faulty_no" checked>Nee</label></div>
+                    </td>
+                  </tr>
+                  <tr id="conclusion_balance">
+                    <td><label class="form-check-label" for="conclusion_balance">Balans</label></td>
+                    <td>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_balance_poor" name="conclusion_balance" value="0" onchange="changeScore()"><label class="form-check-label" for="conclusion_balance_poor">Geen</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_balance_alright" name="conclusion_balance" value="5" onchange="changeScore()"><label class="form-check-label" for="conclusion_balance_alright">Weinig</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_balance_good" name="conclusion_balance" value="10" onchange="changeScore()" checked><label class="form-check-label" for="conclusion_balance_good">Prima</label></div>
+                    </td>
+                  </tr>
+                  <tr id="conclusion_intensity">
+                    <td><label class="form-check-label" for="conclusion_intensity">Intensiteit</label></td>
+                    <td>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_intensity_poor" name="conclusion_intensity" value="0" onchange="changeScore()"><label class="form-check-label" for="conclusion_intensity_poor">Geen</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_intensity_alright" name="conclusion_intensity" value="5" onchange="changeScore()" checked><label class="form-check-label" for="conclusion_intensity_alright">Weinig</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_intensity_good" name="conclusion_intensity" value="10" onchange="changeScore()"><label class="form-check-label" for="conclusion_intensity_good">Prima</label></div>
+                    </td>
+                  </tr>
+                  <tr id="conclusion_complexity">
+                    <td><label class="form-check-label" for="conclusion_complexity">Complexiteit</label></td>
+                    <td>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_complexity_poor" name="conclusion_complexity" value="0" onchange="changeScore()"><label class="form-check-label" for="conclusion_complexity_poor">Geen</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_complexity_alright" name="conclusion_complexity" value="5" onchange="changeScore()" checked><label class="form-check-label" for="conclusion_complexity_alright">Weinig</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_complexity_good" name="conclusion_complexity" value="10" onchange="changeScore()"><label class="form-check-label" for="conclusion_complexity_good">Prima</label></div>
+                    </td>
+                  </tr>
+                  <tr id="conclusion_length">
+                    <td><label class="form-check-label" for="conclusion_length">Lengte</label></td>
+                    <td>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_length_poor" name="conclusion_length" value="0" onchange="changeScore()"><label class="form-check-label" for="conclusion_length_poor">Geen</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_length_alright" name="conclusion_length" value="5" onchange="changeScore()" checked><label class="form-check-label" for="conclusion_length_alright">Weinig</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_length_good" name="conclusion_length" value="10" onchange="changeScore()"><label class="form-check-label" for="conclusion_length_good">Prima</label></div>
+                    </td>
+                  </tr>
+                  <tr id="conclusion_subjective">
+                    <td><label class="form-check-label" for="conclusion_subjective">Subjectief</label></td>
+                    <td>
+                      <input id="conclusion_subjective_range" type="range" class="form-range" min="0" max="10" value="5" onchange="changeScore()">
+                    </td>
+                  </tr>
                   <tr id="conclusion_quality_level">
                     <td><label class="form-check-label" for="conclusion_quality_level">Kwaliteitsniveau</label></td>
                     <td>
-                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="faulty" name="conclusion_quality_level" value="fout in wijn"><label class="form-check-label" for="faulty">Fout in wijn</label></div>
-                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="poor" name="conclusion_quality_level" value="slechte"><label class="form-check-label" for="poor">Slecht</label></div>
-                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="acceptable" name="conclusion_quality_level" value="redelijke"><label class="form-check-label" for="acceptable">Redelijk</label></div>
-                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="good" name="conclusion_quality_level" value="goede"><label class="form-check-label" for="good">Goed</label></div>
-                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="very-good" name="conclusion_quality_level" value="heel goede"><label class="form-check-label" for="very-good">Heel goed</label></div>
-                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="outstanding" name="conclusion_quality_level" value="voortreffelijke"><label class="form-check-label" for="outstanding">Voortreffelijk</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_quality_level_poor" name="conclusion_quality_level" value="slechte" disabled><label class="form-check-label" for="poor">Slecht</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_quality_level_acceptable" name="conclusion_quality_level" value="redelijke" disabled><label class="form-check-label" for="acceptable">Redelijk</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_quality_level_good" name="conclusion_quality_level" value="goede" disabled><label class="form-check-label" for="good">Goed</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_quality_level_very_good" name="conclusion_quality_level" value="heel goede" disabled><label class="form-check-label" for="very-good">Heel goed</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="conclusion_quality_level_outstanding" name="conclusion_quality_level" value="voortreffelijke" disabled><label class="form-check-label" for="outstanding">Voortreffelijk</label></div>
+                    </td>
+                  </tr>
+                  <tr id="conclusion_score">
+                    <td><label class="form-check-label" for="conclusion_score">Score</label></td>
+                    <td>
+                      <output id="conclusion_score_output"></output>
+                    </td>
+                  </tr>
+                  <tr id="conclusion_faults" style="display: none;">
+                    <td><label class="form-check-label" for="conclusion_faults">Fouten</label></td>
+                    <td>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="conclusion_faults_cork" name="conclusion_faults" value="kurk"><label class="form-check-label" for="conclusion_faults_cork">Kurk</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="conclusion_faults_heat_damage" name="conclusion_faults" value="schade door hitte"><label class="form-check-label" for="conclusion_faults_heat_damage">Schade door hitte</label></div>
+                      <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" id="conclusion_faults_defective_closure" name="conclusion_faults" value="defecte afsluiting"><label class="form-check-label" for="conclusion_faults_defective_closure">Defecte afsluiting</label></div>
                     </td>
                   </tr>
                 </table>
@@ -342,6 +400,8 @@
     }
   }
 
+  changeScore();
+
   function changeColour(value) {
     // Fetch all elements
     var appearanceColoursWhiteDiv = document.getElementById("appearance_colour_white");
@@ -377,6 +437,67 @@
       aromaBotteAgeRedDiv.removeAttribute('style');
       palateBotteAgeRedDiv.removeAttribute('style');
     }
+  }
+
+  function triggerFaulty(value) {
+    // Fetch all elements
+    var conclusionBalanceDiv = document.getElementById("conclusion_balance");
+    var conclusionIntensityDiv = document.getElementById("conclusion_intensity");
+    var conclusionComplexityDiv = document.getElementById("conclusion_complexity");
+    var conclusionLengthDiv = document.getElementById("conclusion_length");
+    var conclusionSubjectiveDiv = document.getElementById("conclusion_subjective");
+    var conclusionQualityLevelDiv = document.getElementById("conclusion_quality_level");
+    var conclusionScoreDiv = document.getElementById("conclusion_score");
+    var conclusionFaultsDiv = document.getElementById("conclusion_faults");
+
+    if (value == "yes") {
+      conclusionBalanceDiv.style.display = "none";
+      conclusionIntensityDiv.style.display = "none";
+      conclusionComplexityDiv.style.display = "none";
+      conclusionLengthDiv.style.display = "none";
+      conclusionSubjectiveDiv.style.display = "none";
+      conclusionQualityLevelDiv.style.display = "none";
+      conclusionScoreDiv.style.display = "none";
+      conclusionFaultsDiv.removeAttribute('style');
+    } else {
+      conclusionBalanceDiv.removeAttribute('style');
+      conclusionIntensityDiv.removeAttribute('style');
+      conclusionComplexityDiv.removeAttribute('style');
+      conclusionLengthDiv.removeAttribute('style');
+      conclusionSubjectiveDiv.removeAttribute('style');
+      conclusionQualityLevelDiv.removeAttribute('style');
+      conclusionScoreDiv.removeAttribute('style');
+      conclusionFaultsDiv.style.display = "none";
+    }
+  }
+
+  function changeScore() {
+    var balanceValue = parseInt(getRadioButtonsValue('conclusion_balance'));
+    var intensityValue = parseInt(getRadioButtonsValue('conclusion_intensity'));
+    var complexityValue = parseInt(getRadioButtonsValue('conclusion_complexity'));
+    var lengthValue = parseInt(getRadioButtonsValue('conclusion_length'));
+
+    document.getElementsByName("conclusion_balance").checked = false;
+    document.getElementsByName("conclusion_intensity").checked = false;
+    document.getElementsByName("conclusion_complexity").checked = false;
+    document.getElementsByName("conclusion_length").checked = false;
+
+    var objective = 50 + balanceValue + intensityValue + complexityValue + lengthValue;
+    if (objective >= 85) {
+      document.getElementById("conclusion_quality_level_outstanding").checked = true;
+    } else if (objective >= 75) {
+      document.getElementById("conclusion_quality_level_very_good").checked = true;
+    } else if (objective >= 65) {
+      document.getElementById("conclusion_quality_level_good").checked = true;
+    } else if (objective >= 55) {
+      document.getElementById("conclusion_quality_level_acceptable").checked = true;
+    } else if (objective >= 45) {
+      document.getElementById("conclusion_quality_level_poor").checked = true;
+    }
+
+    var subjective = parseInt(document.getElementById('conclusion_subjective_range').value);
+
+    document.getElementById('conclusion_score_output').value = objective + subjective;;
   }
 
   function copyNote() {
@@ -460,7 +581,19 @@
     }
 
     // Conclusion
+    var conclusion_faulty = getRadioButtonsValue('conclusion_faulty');
+    var conclusion_balance = getRadioButtonsValue('conclusion_balance');
+    var conclusion_intensity = getRadioButtonsValue('conclusion_intensity');
+    var conclusion_complexity = getRadioButtonsValue('conclusion_complexity');
+    var conclusion_length = getRadioButtonsValue('conclusion_length');
     var conclusion_quality_level = getRadioButtonsValue('conclusion_quality_level');
+    var conclusion_score = document.getElementById('conclusion_score_output').value;
+
+    var checkedFaults = [];
+    var faultsCheckboxes = document.querySelectorAll('input[name="conclusion_faults"]:checked');
+    faultsCheckboxes.forEach(function(checkbox) {
+        checkedFaults.push(checkbox.value);
+    });
 
     // Appearance
     var appearance = 
@@ -489,8 +622,18 @@
     palate += palate ? "\n\n" : "";
 
     // Conclusion
-    var conclusion = 
-      (conclusion_quality_level ? conclusion_quality_level + " kwaliteit,\n" : "");
+    if (conclusion_faulty == "no") {
+      var conclusion = 
+        (conclusion_balance ? ((conclusion_balance === "0") ? "geen" : (conclusion_balance === "5") ? "weinig" : (conclusion_balance === "10") ? "prima" : "") + " balans, " : "") +
+        (conclusion_intensity ? ((conclusion_intensity === "0") ? "geen" : (conclusion_intensity === "5") ? "weinig" : (conclusion_intensity === "10") ? "prima" : "") + " intensiteit, " : "") +
+        (conclusion_complexity ? ((conclusion_complexity === "0") ? "geen" : (conclusion_complexity === "5") ? "weinig" : (conclusion_complexity === "10") ? "prima" : "") + " complexiteit, " : "") +
+        (conclusion_length ? ((conclusion_length === "0") ? "geen" : (conclusion_length === "5") ? "weinig" : (conclusion_length === "10") ? "prima" : "") + " lengte/afdronk, " : "") +
+        (conclusion_quality_level ? "\n" + conclusion_quality_level + " kwaliteit,\n" : "");
+    } else {
+      var conclusion =
+        "fouten in de wijn,\n" +
+        checkedFaults.join(', ');
+    }
 
     var note = appearance + nose + palate + conclusion;
     note = note.replace(/^\s+|\s+$/g, '');
